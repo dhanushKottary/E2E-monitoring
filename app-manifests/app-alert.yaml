@@ -1,0 +1,19 @@
+apiVersion: monitoring.coreos.com/v1
+kind: PrometheusRule
+metadata:
+  name: flask-alert-rules
+  namespace: monitoring
+  labels:
+    release: monitoring
+spec:
+  groups:
+    - name: flask-alerts
+      rules:
+        - alert: FlaskRequestCountMultipleOf10
+          expr: (flask_request_count_total - 10 * floor(flask_request_count_total / 10)) == 0
+          for: 1m
+          labels:
+            severity: warning
+          annotations:
+            summary: "flask_request_count_total is a multiple of 10"
+            description: "flask_request_count_total = {{ $value }} which is divisible by 10."
