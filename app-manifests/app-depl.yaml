@@ -1,0 +1,27 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: flask-app-depl
+  labels:
+    type: observability
+spec:
+  replicas: 2
+  template:
+    metadata:
+      name: flask-app-pod
+      labels:
+        type: observability
+    spec:
+      containers:
+        - image: dhaprako/flask-monitoring-app:v1
+          name: flask-app
+          imagePullPolicy: Always
+          ports:
+            - containerPort: 5000
+              name: app-port
+          env:
+            - name: OTEL_EXPORTER_OTLP_ENDPOINT
+              value: http://otel-collector.default.svc.cluster.local:4317              
+  selector:
+    matchLabels:
+      type: observability           
