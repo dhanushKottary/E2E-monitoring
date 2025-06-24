@@ -10,10 +10,10 @@
 Simple flask REST API app.  
 The app uses `opentelemetry` to send the metrics. The metrics `flask_request_count_total` is of type counter which gives the total numbers of requests to the home page.
 
-2. **Prometheus stack**
+2. **Prometheus stack**  
 The prometheus stack is installed using `helm`.
 
-3. **Grafana dashboard**
+3. **Grafana dashboard**  
 Grafana is installed as part of prometheus stack. The dashboard is created for visualizing the metrics `flask_request_count_total`.
 
 ![Grafana-dashboard](./images/grafana-dashboard.png)
